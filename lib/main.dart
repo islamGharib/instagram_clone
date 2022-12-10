@@ -5,6 +5,7 @@ import 'package:instagram_flutter/layout/mobile_screen_layout.dart';
 import 'package:instagram_flutter/layout/responsive_screen_layout.dart';
 import 'package:instagram_flutter/layout/web_screen_layout.dart';
 import 'package:instagram_flutter/modules/login/login_screen.dart';
+import 'package:instagram_flutter/modules/signup/signup_screen.dart';
 import 'package:instagram_flutter/shared/styles/themes.dart';
 
 void main() async{
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       title: 'Instagram Clone',
       theme: mobileTheme,
       // home:  const ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(),webScreenLayout: WebScreenLayout(),),
-      home: LoginScreen(),
+      home: SignUpScreen(),
     );
   }
 }
