@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_flutter/shared/bloc/instagram_bloc.dart';
+import 'package:instagram_flutter/shared/bloc/instagram_states.dart';
+
+import '../bloc/instagram_events.dart';
 
 class DefaultTextFormField extends StatelessWidget {
   final TextEditingController? controller;
@@ -35,9 +40,16 @@ class DefaultTextFormField extends StatelessWidget {
         prefixIcon: Icon(
             prefix
         ),
-        suffixIcon: suffix != null?IconButton(
-            onPressed: suffixPressed,
-            icon: Icon(suffix,)):null,
+        suffixIcon: suffix != null?BlocBuilder<InstagramBloc, InstagramState>(
+          builder: (context, state){
+            InstagramBloc instagramBloc = InstagramBloc.get(context);
+            return IconButton(
+                onPressed: (){
+                  instagramBloc.add(InstagramPasswordChangedVisibilityEvent());
+                },
+                icon: Icon(instagramBloc.suffix,));
+          },
+        ):null,
         border:  inputBorder,
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
