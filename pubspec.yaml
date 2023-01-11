@@ -32,6 +32,11 @@ dependencies:
 
   flutter_svg: ^1.0.3
 
+  #bloc
+  equatable: ^2.0.5
+  flutter_bloc: ^8.0.1
+  bloc: ^8.0.3
+
   #firebase
   firebase_core: ^1.12.0
   firebase_auth: ^3.3.6
