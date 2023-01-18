@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_flutter/modules/login/login_screen.dart';
 import 'package:instagram_flutter/shared/component/components.dart';
 import 'package:instagram_flutter/shared/styles/colors.dart';
+import '../../shared/bloc/instagram_bloc.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -85,14 +87,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 24,),
                 // textformfield for pass
-                DefaultTextFormField(
-                  controller: _passControler,
-                  type: TextInputType.text,
-                  validate: (value){},
-                  label: 'Enter your pass',
-                  prefix: Icons.lock,
-                  isPassword: true,
-                  suffix: Icons.visibility_outlined,
+                BlocBuilder<InstagramBloc, InstagramState>(
+                  builder: (context, state){
+                    InstagramBloc instagramBloc = InstagramBloc.get(context);
+                    return DefaultTextFormField(
+                        controller: _passControler,
+                        type: TextInputType.text,
+                        validate: (value){},
+                        label: 'Enter your pass',
+                        prefix: Icons.lock,
+                        isPassword: instagramBloc.isPassword,
+                        suffix: instagramBloc.suffix,
+                        suffixPressed: (){
+                          instagramBloc.add(InstagramPasswordChangedVisibilityEvent(
+                              isPass: instagramBloc.isPassword,
+                              suffix: instagramBloc.suffix
+                          ));
+                        }
+                    );
+                  },
                 ),
                 const SizedBox(height: 24,),
                 // textformfield for bio

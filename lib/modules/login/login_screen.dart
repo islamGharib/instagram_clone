@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_flutter/modules/signup/signup_screen.dart';
+import 'package:instagram_flutter/shared/bloc/instagram_bloc.dart';
 import 'package:instagram_flutter/shared/component/components.dart';
 import 'package:instagram_flutter/shared/styles/colors.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends StatelessWidget {
   final TextEditingController _emailControler = TextEditingController();
 
   final TextEditingController _passControler = TextEditingController();
-
-  @override
-  void dispose(){
-    super.dispose();
-    _emailControler.dispose();
-    _passControler.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +41,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24,),
                 // textformfield for pass
-                DefaultTextFormField(
-                    controller: _passControler,
-                    type: TextInputType.text,
-                    validate: (value){},
-                    label: 'Enter your pass',
-                    prefix: Icons.lock,
-                    isPassword: true,
-                    suffix: Icons.visibility_outlined,
+                BlocBuilder<InstagramBloc, InstagramState>(
+                  builder: (context, state){
+                    InstagramBloc instagramBloc = InstagramBloc.get(context);
+                    return DefaultTextFormField(
+                        controller: _passControler,
+                        type: TextInputType.text,
+                        validate: (value){},
+                        label: 'Enter your pass',
+                        prefix: Icons.lock,
+                        isPassword: instagramBloc.isPassword,
+                        suffix: instagramBloc.suffix,
+                        suffixPressed: (){
+                          instagramBloc.add(InstagramPasswordChangedVisibilityEvent(
+                            isPass: instagramBloc.isPassword,
+                            suffix: instagramBloc.suffix
+                          ));
+                        }
+                    );
+                  },
                 ),
                 const SizedBox(height: 24,),
                 //  login button
