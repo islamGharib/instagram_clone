@@ -17,3 +17,16 @@ class InstagramChangePasswordVisibilityState extends InstagramState{
   List<Object> get props => [isPass, suffix];
 
 }
+// sign up
+class SocialProfileImagePickedSuccessState extends InstagramState{
+  final dynamic profileImage;
+  SocialProfileImagePickedSuccessState({
+    required this.profileImage,
+  });
+  @override
+  List<Object> get props => [profileImage];
+}
+class SocialProfileImagePickedErrorState extends InstagramState{}
+class SocialSignUpLoadingState extends InstagramState{}
+class SocialSignUpSuccessState extends InstagramState{}
+class SocialSignUpErrorState extends InstagramState{}
