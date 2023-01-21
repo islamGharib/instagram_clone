@@ -6,26 +6,11 @@ import 'package:instagram_flutter/shared/component/components.dart';
 import 'package:instagram_flutter/shared/styles/colors.dart';
 import '../../shared/bloc/instagram_bloc.dart';
 
-
-class SignUpScreen extends StatefulWidget {
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailControler = TextEditingController();
   final TextEditingController _passControler = TextEditingController();
   final TextEditingController _bioControler = TextEditingController();
   final TextEditingController _usernameControler = TextEditingController();
-
-  @override
-  void dispose(){
-    super.dispose();
-    _emailControler.dispose();
-    _passControler.dispose();
-    _bioControler.dispose();
-    _usernameControler.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +34,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 64,),
                 // circular widget to accept and show our selected file
-                Stack(
-                  children: [
-                    const CircleAvatar(
-                      radius: 64,
-                      backgroundImage: NetworkImage(
-                          'https://i.stack.imgur.com/l60Hf.png'),
-                      backgroundColor: Colors.red,
-                    ),
-                    Positioned(
-                      bottom: -10,
-                      left: 80,
-                      child: IconButton(
-                        onPressed: (){},
-                        icon: const Icon(Icons.add_a_photo),
-                      ),
-                    )
-                  ],
+                BlocBuilder<InstagramBloc, InstagramState>(
+                    builder: (context, state){
+                      InstagramBloc instagramBloc = InstagramBloc.get(context);
+                      var profileImage = instagramBloc.profileImage;
+                      return Stack(
+                        children: [
+                          profileImage != null ?
+                            CircleAvatar(
+                            radius: 64,
+                              backgroundImage: FileImage(profileImage),
+                              backgroundColor: Colors.red,
+                            )
+                              : const CircleAvatar(
+                              radius: 64,
+                              backgroundImage: NetworkImage(
+                                  'https://i.stack.imgur.com/l60Hf.png'),
+                              backgroundColor: Colors.red,
+                            ),
+                          Positioned(
+                            bottom: -10,
+                            left: 80,
+                            child: IconButton(
+                              onPressed: (){
+                                instagramBloc.add(InstagramProfileImageGettingEvent(profileImage: instagramBloc.profileImage));
+                              },
+                              icon: const Icon(Icons.add_a_photo),
+                            ),
+                          )
+                        ],
+                      );
+                    },
                 ),
                 const SizedBox(height: 24,),
                 // textformfield for username
