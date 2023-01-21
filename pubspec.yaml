@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^1.0.3
+  image_picker: ^0.8.6
 
   #bloc
   equatable: ^2.0.5
