@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_flutter/modules/login/login_screen.dart';
 import 'package:instagram_flutter/shared/bloc/instagram_bloc.dart';
+import 'package:instagram_flutter/shared/bloc_provider.dart';
 import 'package:instagram_flutter/shared/styles/themes.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   if(kIsWeb){
     await Firebase.initializeApp(
       options: const FirebaseOptions(

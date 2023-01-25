@@ -4,8 +4,8 @@ class UserModel{
   final String name;
   final String email;
   final String phone;
-  final dynamic image;
-  final dynamic cover;
+  final String profileImageUrl;
+  // final dynamic cover;
   final String bio;
   final dynamic followers;
   final dynamic following;
@@ -16,8 +16,8 @@ class UserModel{
     required this.email,
     required this.phone,
     required this.bio,
-    this.image,
-    this.cover,
+    required this.profileImageUrl,
+    // this.cover,
     this.followers,
     this.following,
   });
@@ -27,8 +27,8 @@ class UserModel{
         name = json['name'],
         email = json['email'],
         phone = json['phone'],
-        image = json['image'],
-        cover = json['cover'],
+        profileImageUrl = json['image'],
+        // cover = json['cover'],
         followers = json['followers'],
         following = json['following'],
         bio = json['bio'];
@@ -39,8 +39,8 @@ class UserModel{
       'name':name,
       'email':email,
       'phone':phone,
-      'image':image,
-      'cover':cover,
+      'image':profileImageUrl,
+      // 'cover':cover,
       'bio':bio,
       'followers':[],
       'following':[]

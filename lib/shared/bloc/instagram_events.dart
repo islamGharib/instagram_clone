@@ -28,16 +28,18 @@ class InstagramProfileImageGettingEvent extends InstagramEvent{
   List<Object> get props => [profileImage];
 }
 class InstagramSignUpEvent extends InstagramEvent{
-  final Uint8List profileImage;
+  final File profileImage;
   final String userName;
   final String email;
   final String password;
+  final String phone;
   final String bio;
   InstagramSignUpEvent({
     required this.profileImage,
     required this.userName,
     required this.email,
     required this.password,
+    required this.phone,
     required this.bio,
   });
 
